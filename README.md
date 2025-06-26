@@ -229,7 +229,7 @@ Elimina un user por su Nro ordinal.
 La base de datos MongoDB se conecta usando **Mongoose** con la siguiente URI:
 
 ```js
-mongoose.connect("mongodb+srv://nicotole:toletole12@cluster0.mkyvq6u.mongodb.net/EcoMystika?retryWrites=true&w=majority&appName=Cluster0")
+mongoose.connect("mongodb+srv://nicotole:toletole12@cluster0.mkyvq6u.mongodb.net/integrative_practice?retryWrites=true&w=majority&appName=Cluster0")
 ```
 
 ## 🚀 Instalación y uso
