@@ -1,17 +1,32 @@
-<!-- login.handlebars -->
+<!-- /src/views/login.handlebars -->
 
-<form method="POST" action="/api/sessions/login">
-  <label>
-    Email:
-    <input type="email" name="email" placeholder="example@mail.com" value=""/>
-  </label>
-  <br />
-  <label>
-    Password:
-    <input type="password" name="password" placeholder="********" value=""/>
-  </label>
-  <br />
-  <input type="submit" value="Login" />
-</form>
 
-<p>Not account? <a href="/register">Register!</a></p>
+<div class="d-flex vh-100 justify-content-center align-items-center">
+  <div class="card shadow p-4" style="min-width: 350px; max-width: 400px;">
+    <h3 class="text-center mb-4">🔐 Iniciar Sesión</h3>
+
+    <form method="POST" action="/api/sessions/login">
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo electrónico</label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="example@mail.com" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" id="password" name="password" class="form-control" placeholder="********" required />
+      </div>
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Ingresar</button>
+      </div>
+    </form>
+
+    <hr class="my-4" />
+
+    <div class="text-center">
+      <p>¿No tenés cuenta? <a href="/views/register">Registrarse</a></p>
+      <p>¿Olvidaste tu contraseña? <a href="/views/forgot-password">Recuperar</a></p>
+    </div>
+  </div>
+</div>
+

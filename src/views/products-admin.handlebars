@@ -1,0 +1,31 @@
+<!-- /src/views/products-admin.handlebars -->
+
+
+<div class="row">
+  {{#each products}}
+  <div class="col-md-4">
+    <div class="card mb-4 shadow-sm position-relative">
+
+      <!-- Botón de eliminación -->
+      <button class="btn btn-danger btn-sm position-absolute top-0 start-0 m-2"
+        onclick='eliminarProducto("{{this._id}}")'>
+        &times;
+      </button>
+
+      <!-- Botón de edición -->
+      <button class="btn btn-warning btn-sm position-absolute top-0 end-0 m-2"
+        onclick='editarProducto("{{this._id}}", "{{this.title}}", "{{this.description}}", "{{this.price}}", "{{this.num}}", "{{this.stock}}", "{{this.category}}")'>
+        ✏️
+      </button>
+
+      <div class="card-body pt-5">
+        <h5 class="card-title">{{this.title}}</h5>
+        <p class="card-text">{{this.description}}</p>
+        <p class="card-text"><strong>Precio:</strong> ${{this.price}}</p>
+        <p class="card-text"><strong>Stock:</strong> {{this.stock}}</p>
+        <p class="card-text"><strong>Categoría:</strong> {{this.category}}</p>
+      </div>
+    </div>
+  </div>
+  {{/each}}
+</div>

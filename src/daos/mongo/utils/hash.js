@@ -1,4 +1,4 @@
-// / /utils/hash.js
+//  /src/daos/mongo/utils/hash.js
 
 import bcrypt from "bcrypt";
 

@@ -1,13 +1,253 @@
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Practica integradora</title>
-    <link href="css/style.css" rel="stylesheet">
-  </head>
-  <body>
-     
-    {{{body}}}
+<!-- /src/views/layouts/main.handlebars -->
 
-  </body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Productos en Tiempo Real</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container my-5">
+    {{{body}}}
+  </div>
+
+  <button onclick="openCartModal()" class="btn btn-primary position-fixed top-0 end-0 m-4 shadow">
+    🛒 Abrir Carrito
+  </button>
+
+
+  <!-- Modal del Carrito -->
+  <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-end">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cartModalLabel">Changuito de Compras</h5>
+          <button type="button" class="btn-close" onclick="closeCartModal()" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div id="cartItemsContainer">
+            <ul id="lista-carrito" class="list-unstyled"></ul>
+          </div>
+          <hr>
+          <p id="totalCarrito"><strong>Total: $0</strong></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeCartModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <script>
+    const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
+    let CURRENT_CART_ID = null;
+
+    async function getMyCart() {
+      const res = await fetch("/api/carts/my-cart", {
+        method: "GET",
+        credentials: "include"
+      });
+
+      const data = await res.json();
+
+      if (data.result !== "ok") {
+        throw new Error(data.message || "No se pudo obtener el carrito");
+      }
+
+      return data.payload;
+    }
+
+
+    async function openCartModal() {
+      try {
+        const carrito = await getMyCart(); // ✅ Ahora sí, función fetch del cliente
+        CURRENT_CART_ID = carrito._id;
+        actualizarVistaCarrito(CURRENT_CART_ID);
+        cartModal.show();
+      } catch (err) {
+        Swal.fire("Error", err.message, "error");
+      }
+    }
+
+    function closeCartModal() {
+      cartModal.hide();
+    }
+
+    async function agregarAlCarrito(productId) {
+      console.log("Intentando agregar producto:", productId); // 🧪
+
+      try {
+        // Si no hay carrito aún cargado en la variable global, lo obtenemos
+        if (!CURRENT_CART_ID) {
+          const carrito = await getMyCart();
+          CURRENT_CART_ID = carrito._id;
+        }
+
+        const res = await fetch(`/api/carts/addToCart/${CURRENT_CART_ID}/${productId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include'
+        });
+
+        console.log("Respuesta fetch:", res); // 🧪
+        const data = await res.json();
+        console.log("Respuesta JSON:", data); // 🧪
+
+        if (data.result === "ok") {
+          Swal.fire('Agregado', 'Producto agregado al carrito', 'success');
+          actualizarVistaCarrito(CURRENT_CART_ID);
+        } else {
+          Swal.fire('Error', data.message || 'Error desconocido', 'error');
+        }
+      } catch (error) {
+        console.error("Error en agregarAlCarrito:", error); // 🧪
+        Swal.fire('Error', error.message || 'No se pudo agregar al carrito', 'error');
+      }
+    }
+
+
+    async function actualizarVistaCarrito() {
+      try {
+        const data = await getMyCart(); // 👈 Usamos la función auxiliar
+        console.log("Carrito recibido:", data); // 🧪 VERIFICAR ESTRUCTURA
+
+        const productos = data.products;
+        const contenedor = document.getElementById('lista-carrito');
+        contenedor.innerHTML = '';
+
+        const max = 5;
+        let total = 0;
+
+        productos.slice(0, max).forEach(p => {
+          const item = document.createElement('li');
+          item.classList.add('d-flex', 'justify-content-between', 'align-items-center', 'mb-2');
+          item.innerHTML = `
+        <span>${p.title} - $${p.price} x ${p.quantity}</span>
+        <button class="btn btn-sm btn-danger" onclick="eliminarDelCarrito(${p.num})">X</button>
+      `;
+          contenedor.appendChild(item);
+          total += p.price * p.quantity;
+        });
+
+        if (productos.length > max) {
+          const item = document.createElement('li');
+          item.textContent = `... y ${productos.length - max} más`;
+          contenedor.appendChild(item);
+        }
+
+        document.getElementById('totalCarrito').innerHTML = `<strong>Total: $${total.toFixed(2)}</strong>`;
+      } catch (error) {
+        console.error("Error al cargar carrito:", error);
+        Swal.fire('Error', error.message || 'No se pudo cargar el carrito', 'error');
+      }
+    }
+
+
+
+    function eliminarProducto(id) {
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: '¡No podrás revertir esta acción!',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminarlo',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch(`/api/products/id/${id}`, {
+            method: 'DELETE',
+          })
+            .then(res => {
+              if (res.ok) {
+                Swal.fire('Eliminado!', 'El producto ha sido eliminado.', 'success');
+                location.reload();
+              } else {
+                Swal.fire('Error!', 'No se pudo eliminar el producto.', 'error');
+              }
+            })
+            .catch(() => {
+              Swal.fire('Error!', 'Ocurrió un error al eliminar el producto.', 'error');
+            });
+        }
+      });
+    }
+
+
+    function editarProducto(_id, title, description, price, num, stock, category) {
+      Swal.fire({
+        title: 'Editar Producto',
+        html: `
+          <input id="editTitle" class="swal2-input" value="${title}" placeholder="Título" />
+          <textarea id="editDescription" class="swal2-textarea" placeholder="Descripción">${description}</textarea>
+          <input type="number" id="editPrice" class="swal2-input" value="${price}" placeholder="Precio" />
+          <input id="editCode" class="swal2-input" value="${num}" placeholder="Código" />
+          <input type="number" id="editStock" class="swal2-input" value="${stock}" placeholder="Stock" />
+          <input id="editCategory" class="swal2-input" value="${category}" placeholder="Categoría" />
+        `,
+        showCancelButton: true,
+        confirmButtonText: 'Guardar',
+        preConfirm: () => ({
+          title: document.getElementById('editTitle').value,
+          description: document.getElementById('editDescription').value,
+          price: parseFloat(document.getElementById('editPrice').value),
+          num: document.getElementById('editCode').value,
+          stock: parseInt(document.getElementById('editStock').value),
+          category: document.getElementById('editCategory').value
+        })
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch(`/api/products/id/${_id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(result.value)
+          })
+            .then(res => res.json())
+            .then(() => {
+              Swal.fire('Actualizado', 'El producto ha sido editado.', 'success');
+              location.reload();
+            })
+            .catch(() => Swal.fire('Error', 'No se pudo editar el producto.', 'error'));
+        }
+      });
+    }
+
+    async function eliminarDelCarrito(productNum) {
+      try {
+        const carrito = await getMyCart(); // 👈 obtenemos el carrito del usuario autenticado
+        const cartId = carrito._id;
+
+        const res = await fetch(`/api/carts/id/${cartId}/product/num/${productNum}`, {
+          method: 'DELETE',
+          credentials: 'include' // Por si el endpoint está protegido con JWT
+        });
+
+        const data = await res.json();
+
+        if (data.result === "ok") {
+          await actualizarVistaCarrito(); // No hace falta pasar cartId, ya lo busca de nuevo
+          Swal.fire('Eliminado', 'Producto eliminado del changuito.', 'success');
+        } else {
+          Swal.fire('Error', data.message || 'No se pudo eliminar del carrito.', 'error');
+        }
+
+      } catch (err) {
+        console.error("Error al eliminar del carrito:", err);
+        Swal.fire('Error', err.message || 'Ocurrió un error al eliminar del producto.', 'error');
+      }
+    }
+
+  </script>
+
+</body>
+
 </html>

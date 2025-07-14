@@ -1,92 +1,53 @@
-//  /routes/products.router.js
+//  /src/routes/products.router.js
 
 import { Router } from "express";
-import mongoose from "mongoose";
-import { productModel } from "../models/product.model.js";
-import { getNextId } from "../utils/getNextId.js";
+import passport from "passport";
+import ProductController from "../controllers/product.controller.js";
+import { requireRole } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
+const prodControl = new ProductController();
+
 // ✅ Crear nuevo producto
-router.post("/", async (req, res) => {
-  try {
-    const {
-      title,
-      description,
-      code_bar,
-      product_number,
-      price,
-      status,
-      stock,
-      category,
-      thumbnails
-    } = req.body;
+router.post("/", prodControl.create);
 
-    const nextNum = await getNextId(productModel);
-
-    const newProduct = await productModel.create({
-      _id: new mongoose.Types.ObjectId(),
-      title,
-      description,
-      code_bar,
-      product_number,
-      price,
-      status,
-      stock,
-      category,
-      thumbnails,
-      num: nextNum
-    });
-
-    res.status(201).json({ message: "Producto creado", product: newProduct });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+router.get(
+    "/getAll/:role",
+    passport.authenticate("jwt", { session: false }),
+    (req, res, next) => {
+      const allowed = ["ADMIN", "USER"];
+      const requested = req.params.role?.toUpperCase();
+      if (!allowed.includes(requested) || req.user.role !== requested) {
+        return res.status(403).send("Acceso denegado");
+      }
+      next();
+    },
+    prodControl.getAll4ViewByRole
+  );
+  
 
 // ✅ Obtener todos los productos
-router.get("/", async (_, res) => {
-  const products = await productModel.find();
-  res.json(products);
-});
+router.get("/", prodControl.getAll);
 
-// ✅ Obtener producto por _id
-router.get("/id/:id", async (req, res) => {
-  const product = await productModel.findById(req.params.id);
-  if (!product) return res.status(404).json({ message: "Producto no encontrado" });
-  res.json(product);
-});
+// ✅ Obtener producto por ID
+router.get("/id/:id", prodControl.getById);
 
 // ✅ Obtener producto por num
-router.get("/num/:num", async (req, res) => {
-  const product = await productModel.findOne({ num: parseInt(req.params.num) });
-  if (!product) return res.status(404).json({ message: "Producto no encontrado" });
-  res.json(product);
-});
+router.get("/num/:num", prodControl.getByNum);
 
-// ✅ Actualizar producto por _id
-router.put("/id/:id", async (req, res) => {
-  try {
-    const updated = await productModel.findByIdAndUpdate(req.params.id, req.body, {
-      new: true
-    });
-    if (!updated) return res.status(404).json({ message: "Producto no encontrado" });
-    res.json({ message: "Producto actualizado", product: updated });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+// ✅ Actualizar producto por ID
+router.put("/id/:id", prodControl.update);
 
-// ✅ Eliminar producto por _id
-router.delete("/id/:id", async (req, res) => {
-  const result = await productModel.deleteOne({ _id: req.params.id });
-  res.json(result);
-});
+// ✅ Eliminar producto por ID
+router.delete("/id/:id", prodControl.deleteByID);
 
 // ✅ Eliminar producto por num
-router.delete("/num/:num", async (req, res) => {
-  const result = await productModel.deleteOne({ num: parseInt(req.params.num) });
-  res.json(result);
-});
+router.delete("/num/:num", prodControl.deleteByNum);
 
 export default router;
+
+
+
+
+

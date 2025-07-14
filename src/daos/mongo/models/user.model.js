@@ -1,7 +1,12 @@
-import mongoose from "mongoose";
+//  /src/daos/mongo/models/user.model.js
 
-const userSchema = new mongoose.Schema({
-  _id:mongoose.Schema.Types.ObjectId,
+import { Schema, model } from "mongoose";
+
+// nombre de la colección
+const userCollection = "users";
+
+const userSchema = new Schema({
+
   first_name: {
     type: String,
     required: true
@@ -22,7 +27,7 @@ const userSchema = new mongoose.Schema({
     required: true
   },
   cart: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "carts"
   },
   role: {
@@ -33,6 +38,6 @@ const userSchema = new mongoose.Schema({
   num:Number
 }, { versionKey: false }  )
 
-const userModel = mongoose.model("users", userSchema);
+const userModel = model(userCollection, userSchema);
 export default userModel;
 
