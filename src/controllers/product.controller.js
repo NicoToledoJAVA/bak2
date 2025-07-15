@@ -69,7 +69,10 @@ class ProductController {
       } else if (role === "USER") {
         return res.render("products-user", { products: plainProducts });
       } else {
-        return res.status(403).send("Rol no autorizado o desconocido");
+        return res.status(403).render("403-forbidden", {
+          message: "Rol no autorizado o desconocido",
+          user: req.user
+        });
       }
     } catch (error) {
       console.error("❌ Error en getAll4ViewByRole:", error);

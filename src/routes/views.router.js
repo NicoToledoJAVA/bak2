@@ -12,9 +12,6 @@ router.get("/", (req, res) => {
   res.render("index");
 });
 
-
-
-
 router.get("/views/login", (req, res) => {
   res.render("login");
 });
@@ -45,5 +42,10 @@ router.get("/views/reset-password", (req, res) => {
 router.get("/views/failed", (req, res) => {
   res.render("failed");
 });
+
+router.get("/views/failed", (req, res) => {
+  res.render("failed");
+});
+
 
 export default router;

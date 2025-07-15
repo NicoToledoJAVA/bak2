@@ -32,6 +32,7 @@ server.use(cors());
 initializedPassport();
 server.use(passport.initialize());
 
+server.use(express.static(path.join(__dirname, "../public")));
 server.use("/", viewsRouter);
 server.use("/api", indexRouter);
 

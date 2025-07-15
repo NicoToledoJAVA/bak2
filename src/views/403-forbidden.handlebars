@@ -1,0 +1,22 @@
+<!-- /src/views/403-forbidden.handlebars -->
+<div class="d-flex vh-100 justify-content-center align-items-center bg-light">
+  <div class="text-center">
+    <h1 class="display-3 text-danger">403</h1>
+    <h2 class="text-dark">Acceso denegado</h2>
+
+    {{#if message}}
+    <p class="text-muted"><em>Mensaje del servidor: {{message}}</em></p>
+    {{/if}}
+
+    <p class="lead">Usted ve esto porque <strong>no tiene permiso</strong> para estar aquí.</p>
+
+    <img src="/img/hacker1.png" alt="Hacker tachado" class="img-fluid my-4" style="max-width: 300px;">
+
+    <div>
+      <a href="/" class="btn btn-outline-primary">Volver al inicio</a>
+     <form action="/api/sessions/logout" method="POST">
+        <button type="submit" class="btn btn-outline-danger ms-2">Cerrar sesión</button>
+      </form>
+    </div>
+  </div>
+</div>

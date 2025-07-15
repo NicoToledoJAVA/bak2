@@ -19,7 +19,11 @@ router.get(
       const allowed = ["ADMIN", "USER"];
       const requested = req.params.role?.toUpperCase();
       if (!allowed.includes(requested) || req.user.role !== requested) {
-        return res.status(403).send("Acceso denegado");
+        return res.status(403).render("403-forbidden", {
+          message: "Acceso denegado",
+          user: req.user
+        });
+        
       }
       next();
     },
@@ -37,13 +41,29 @@ router.get("/id/:id", prodControl.getById);
 router.get("/num/:num", prodControl.getByNum);
 
 // ✅ Actualizar producto por ID
-router.put("/id/:id", prodControl.update);
+router.put(
+  "/id/:id",
+  passport.authenticate("jwt", { session: false }),
+  requireRole("ADMIN"),
+  prodControl.update
+);
 
 // ✅ Eliminar producto por ID
-router.delete("/id/:id", prodControl.deleteByID);
+router.delete(
+  "/id/:id",
+  passport.authenticate("jwt", { session: false }),
+  requireRole("ADMIN"),
+  prodControl.deleteByID
+);
 
 // ✅ Eliminar producto por num
-router.delete("/num/:num", prodControl.deleteByNum);
+router.delete(
+  "/num/:num",
+  passport.authenticate("jwt", { session: false }),
+  requireRole("ADMIN"),
+  prodControl.deleteByNum
+);
+
 
 export default router;
 
