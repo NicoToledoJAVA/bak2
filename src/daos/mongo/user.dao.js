@@ -28,9 +28,9 @@ class UserDAO {
     }
   }
 
-  async getUserById(uid) {
+  async getUserById(id) {
     try {
-      let result = await userModel.findOne({ _id: uid });
+      let result = await userModel.findOne({ _id: id });
       return result;
     } catch (error) {
       console.error({ error });
@@ -40,7 +40,7 @@ class UserDAO {
 
   async getUserByNum(num) {
     try {
-      const result = await userModel.findOne({ num }).populate("orders");
+      const result = await userModel.findOne({ num });
       return result;
     } catch (error) {
       console.error({ error });
@@ -57,9 +57,9 @@ class UserDAO {
     }
   }
 
-  async updateUserByID(uid, obj) {
+  async updateUserByID(id, obj) {
     try {
-      let result = await userModel.updateOne({ _id: uid }, { $set: obj });
+      let result = await userModel.updateOne({ _id: id }, { $set: obj });
       return result;
     } catch (error) {
       console.error({ error });
@@ -78,9 +78,9 @@ class UserDAO {
   }
   
 
-  async deleteUserByID(uid) {
+  async deleteUserByID(id) {
     try {
-      const result = await userModel.deleteOne({ _id: uid });
+      const result = await userModel.deleteOne({ _id: id });
       return result;
     } catch (error) {
       console.error({ error });

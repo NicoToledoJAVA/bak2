@@ -408,7 +408,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/users/id/685c97607a522336f330d54b",
+					"raw": "http://localhost:8080/api/users/id/68759e615c1dbbfb118e6d5a",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -418,7 +418,7 @@
 						"api",
 						"users",
 						"id",
-						"685c97607a522336f330d54b"
+						"68759e615c1dbbfb118e6d5a"
 					]
 				}
 			},
@@ -430,7 +430,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/users/num/1",
+					"raw": "http://localhost:8080/api/users/num/10",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -440,7 +440,7 @@
 						"api",
 						"users",
 						"num",
-						"1"
+						"10"
 					]
 				}
 			},
@@ -453,7 +453,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"first_name\": \"Actualizado\",\r\n  \"last_name\": \"Ejemplo\",\r\n  \"age\": 40,\r\n  \"role\": \"PREMIUM\"\r\n}",
+					"raw": "{\r\n  \"name\": \"Actualizado\",\r\n  \"email\": \"Ejemplo@example.com\",\r\n  \"password\": \"safeone1\",\r\n  \"role\": \"USER\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -461,7 +461,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/users/id/685c189ae18d7314811539e7",
+					"raw": "http://localhost:8080/api/users/id/68759e615c1dbbfb118e6d5a",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -471,7 +471,7 @@
 						"api",
 						"users",
 						"id",
-						"685c189ae18d7314811539e7"
+						"68759e615c1dbbfb118e6d5a"
 					]
 				}
 			},
@@ -484,7 +484,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"first_name\": \"Modif\",\r\n  \"last_name\": \"Ikado\",\r\n  \"age\": 70,\r\n  \"role\": \"USER\"\r\n}",
+					"raw": "{\r\n  \"name\": \"Actualizado\",\r\n  \"email\": \"otromail@example.com\",\r\n  \"password\": \"safeone1\",\r\n  \"role\": \"ADMIN\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -492,7 +492,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/users/num/1",
+					"raw": "http://localhost:8080/api/users/num/11",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -502,7 +502,7 @@
 						"api",
 						"users",
 						"num",
-						"1"
+						"11"
 					]
 				}
 			},

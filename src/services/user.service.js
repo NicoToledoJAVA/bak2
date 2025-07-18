@@ -65,8 +65,8 @@ class UserService {
     return await userRepo.getAll();
   }
 
-  async getById(uid) {
-    return await userRepo.getById(uid);
+  async getById(id) {
+    return await userRepo.getById(id);
   }
 
   async getByNum(num) {
@@ -82,7 +82,7 @@ class UserService {
     return user;
   }
 
-  async getByEmail(email) {
+  async tryEmail(email) {
     if (!email || typeof email !== "string") {
       throw new Error("Email inválido");
     }
@@ -95,12 +95,22 @@ class UserService {
     return user;
   }
 
-  async updateUserByID(uid, updateData) {
-    if (!uid || typeof updateData !== "object") {
+
+  async tryEmail(email) {
+    if (!email || typeof email !== "string") {
+      return false;
+    }
+  
+    const user = await userRepo.getByEmail(email);
+    return !!user; // true si existe, false si no
+  }
+  
+  async updateUserByID(id, updateData) {
+    if (!id || typeof updateData !== "object") {
       throw new Error("Parámetros inválidos para actualizar el usuario");
     }
 
-    const result = await userRepo.updateById(uid, updateData);
+    const result = await userRepo.updateById(id, updateData);
 
     if (!result || result.modifiedCount === 0) {
       throw new Error("No se pudo actualizar el usuario o no se encontró");
@@ -122,13 +132,13 @@ class UserService {
     return { status: "success", message: "Usuario actualizado correctamente" };
   }
 
-  async changePassword(uid, newPlainPass) {
-    if (!uid || typeof newPlainPass !== "string") {
+  async changePassword(id, newPlainPass) {
+    if (!id || typeof newPlainPass !== "string") {
       throw new Error("Parámetros inválidos");
     }
 
     // 1. Obtener el usuario completo
-    const prevUser = await userRepo.getById(uid);
+    const prevUser = await userRepo.getById(id);
     if (!prevUser) {
       throw new Error("Usuario no encontrado");
     }
@@ -149,7 +159,7 @@ class UserService {
     };
 
     // 4. Guardar el usuario actualizado
-    const result = await userRepo.updateById(uid, updatedUser);
+    const result = await userRepo.updateById(id, updatedUser);
     if (!result || result.modifiedCount === 0) {
       throw new Error("No se pudo cambiar la contraseña");
     }
@@ -157,10 +167,10 @@ class UserService {
     return { status: "success", message: "Contraseña actualizada correctamente" };
   }
 
-  async deleteUserByID(uid) {
-    if (!uid) throw new Error("ID de usuario inválido");
+  async deleteUserByID(id) {
+    if (!id) throw new Error("ID de usuario inválido");
 
-    const result = await userRepo.deleteById(uid);
+    const result = await userRepo.deleteById(id);
     if (!result || result.deletedCount === 0) {
       throw new Error("No se encontró el usuario o no se pudo eliminar");
     }

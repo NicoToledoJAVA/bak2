@@ -414,6 +414,7 @@ Respuesta:
 
 | Endpoint                     | Método | Descripción                    |
 |------------------------------|--------|--------------------------------|
+| `/api/users/`               | POST   | Crear usuario manualmente     |
 | `/api/users/`               | GET    | Listar todos los usuarios     |
 | `/api/users/id/:id`         | GET    | Buscar por ID                 |
 | `/api/users/num/:num`       | GET    | Buscar por número             |
@@ -422,9 +423,178 @@ Respuesta:
 | `/api/users/id/:id`         | DELETE | Eliminar por ID               |
 | `/api/users/num/:num`       | DELETE | Eliminar por número           |
 | `/api/users/register`       | POST   | Registro desde cliente        |
-| `/api/users/`               | POST   | Crear usuario manualmente     |
+
 
 ---
+
+## 👤 Usuarios (/api/users)
+
+### 📄 POST /api/user/
+Descripción: Permite crear un usuario manualmente pasandole un body.
+
+Body (JSON):
+
+```json
+{
+  "first_name": "Nombre",
+  "last_name": "Apellido",
+  "email": "nombre.apellido@dominio.com",
+  "password": "ContraseñaSegura123",
+  "age": 99,
+  "role": "USER"
+}
+```
+
+
+> ✅  **Respuesta esperada (302 FOUND):** Redirige a la pantalla principal de productos.
+
+### 📄 GET /api/users
+Descripción: Devuelve un array con todos los usuarios registrados.
+
+Respuesta esperada (200 OK):
+
+```json
+[
+  {
+    "_id": "64fa65c9b5b9d8c10e4c735f",
+    "first_name": "Carlos",
+    "last_name": "Pérez",
+    "email": "carlos@example.com",
+    "role": "user",
+    "last_connection": "2024-09-01T10:30:00.000Z"
+  },
+  {
+    "_id": "64fa65c9b5b9d8c10e4c7360",
+    "first_name": "Lucía",
+    "last_name": "García",
+    "email": "lucia@example.com",
+    "role": "premium",
+    "last_connection": "2024-09-03T22:45:00.000Z"
+  }
+]
+```
+
+### 🔍 GET /api/users/id/:id
+Descripción: Devuelve los datos de un único usuario según su id.
+
+```
+Ejemplo:
+GET /api/users/id/64fa65c9b5b9d8c10e4c735f
+```
+
+Respuesta esperada (200 OK):
+
+```json
+{
+  "_id": "64fa65c9b5b9d8c10e4c735f",
+  "first_name": "Carlos",
+  "last_name": "Pérez",
+  "email": "carlos@example.com",
+  "role": "user",
+  "last_connection": "2024-09-01T10:30:00.000Z"
+}
+```
+
+### 🔍 GET /api/users/num/:num
+Descripción: Devuelve los datos de un único usuario según su num.
+
+```
+Ejemplo:
+GET /api/users/num/5
+```
+
+Respuesta esperada (200 OK):
+
+```json
+{
+  "_id": "64fa65c9b5b9d8c10e4c735f",
+  "first_name": "Carlos",
+  "last_name": "Pérez",
+  "email": "carlos@example.com",
+  "role": "user",
+  "last_connection": "2024-09-01T10:30:00.000Z"
+}
+```
+
+### 📝 PUT /api/users/id/:id
+Descripción: Actualiza un usuario existente utilizando su _id de MongoDB.
+
+Body (JSON):
+```json
+{
+  "name": "Nombre actualizado",
+  "email": "nuevoemail@correo.com",
+  "password": "nuevacontraseña",
+  "role": "user"
+}
+```
+
+Respuesta exitosa (200):
+```json
+{
+  "status": "success",
+  "message": "Usuario actualizado correctamente"
+}
+```
+Errores posibles:
+400 Bad Request si el ID es inválido o no se encuentra el usuario.
+
+
+### 📝 PUT /api/users/num/:num
+Descripción: Actualiza un usuario utilizando su número de usuario (num) como identificador.
+
+Body (JSON):
+
+```json
+{
+  "name": "Nombre actualizado",
+  "email": "nuevoemail@correo.com",
+  "password": "nuevacontraseña",
+  "role": "admin"
+}
+```
+
+Respuesta exitosa (200):
+
+```json
+{
+  "status": "success",
+  "message": "Usuario actualizado correctamente"
+}
+```
+
+Errores posibles:
+400 Bad Request si el número no es válido o no se encuentra el usuario.
+
+
+### 🗑 DELETE /api/users/id/:id
+Descripción: Elimina un usuario por su uid.
+
+Respuesta esperada (200 OK):
+
+```json
+{
+  "status": "success",
+  "message": "Usuario eliminado correctamente."
+}
+```
+
+### 🗑 DELETE /api/users/num/:num
+Descripción: Elimina automáticamente un usuario por su número de orden (atributo 'num').
+
+Respuesta esperada (200 OK):
+```json
+{
+  "status": "success",
+  "deletedUsers": [
+    {
+      "_id": "64fa65c9b5b9d8c10e4c7360",
+      "email": "inactivo@example.com",
+      "last_connection": "2024-08-25T08:00:00.000Z"
+    }
+  ]
+}
+```
 
 ## 🛒 Carritos
 

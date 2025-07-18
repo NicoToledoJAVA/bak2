@@ -66,10 +66,10 @@ class UserController {
 
   // Obtener usuario por ID
   async getUserById(req, res) {
-    const uid = req.params.uid;
+    const id = req.params.id;
 
     try {
-      const user = await userService.getById(uid);
+      const user = await userService.getById(id);
       if (!user) {
         return res.status(404).json({ status: "error", message: "User not found" });
       }
@@ -103,7 +103,7 @@ class UserController {
     }
   
     try {
-      const user = await userService.getByEmail(email);
+      const user = await userService.tryEmail(email);
       res.json({ status: "success", user });
     } catch (error) {
       res.status(404).json({ status: "error", message: error.message });
@@ -112,11 +112,11 @@ class UserController {
 
   // Actualizar usuario
   async updateUserByID(req, res) {
-    const uid = req.params.uid;
+    const id = req.params.id;
     const updateData = req.body;
 
     try {
-      const result = await userService.updateUserByID(uid, updateData);
+      const result = await userService.updateUserByID(id, updateData);
       res.json(result);
     } catch (error) {
       res.status(400).json({ status: "error", message: error.message });
@@ -127,11 +127,19 @@ class UserController {
   async updateUserByNum(req, res) {
     const num = parseInt(req.params.num);
     const updateData = req.body;
-
+    const email = updateData.email;
     if (isNaN(num)) {
       return res.status(400).json({ status: "error", message: "Número inválido" });
     }
-
+    
+    if (email) {
+      const emailInUse = await userService.tryEmail(email);
+      if (emailInUse) {
+        return res.status(400).json({ status: "error", message: "Email already in use" });
+      }
+    }
+  
+   
     try {
       const result = await userService.updateUserByNum(num, updateData);
       res.json(result);
@@ -141,10 +149,10 @@ class UserController {
   }
   // Eliminar usuario
   async deleteUserByID(req, res) {
-    const uid = req.params.uid;
+    const id = req.params.id;
 
     try {
-      const result = await userService.deleteUserByID(uid);
+      const result = await userService.deleteUserByID(id);
       res.json(result);
     } catch (error) {
       res.status(404).json({ status: "error", message: error.message });
