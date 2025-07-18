@@ -19,14 +19,14 @@ Este es el backend de **EcoMystika**, una aplicación de e-commerce construida c
 ## 🚀 Instalación
 
 ```bash
-git clone <url-del-repo>
-cd nombre-del-proyecto
+git clone <https://github.com/NicoToledoJAVA/bak2.git>
+cd bak2
 npm install
-
+```
 
 ## 🌐 Endpoints y Vistas
 
-### 👤 Autenticación
+## 👤 Autenticación
 
 | Endpoint                         | Método | Descripción                                |
 |----------------------------------|--------|--------------------------------------------|
@@ -47,6 +47,105 @@ npm install
 - El frontend accede a rutas según el rol, y en caso contrario, se renderiza una vista `403-forbidden`
 
 ---
+
+## 👤 Autenticación (Desarrollo)
+
+### ✅ POST /api/sessions/login
+
+Descripción: Inicia sesión. Devuelve un JWT y setea cookie de sesión.
+
+Body (JSON):
+
+```json
+{
+  "email": "usuario@ejemplo.com",
+  "password": "tuContraseña"
+}
+```
+
+Respuesta esperada:
+
+```json
+{
+  "status": "success",
+  "message": "Login exitoso",
+  "token": "jwt_generado"
+}
+```
+### 🔓 POST /api/sessions/logout
+
+Descripción: Cierra la sesión del usuario. Elimina la cookie.
+
+### 👤 POST /api/sessions/current
+
+Descripción: Devuelve los datos del usuario autenticado.
+
+Headers:
+
+```php-template
+|---- KEY: -----|-----------VALUE------------|
+|               |                            |
+|Authorization: |    Bearer <token_JWT>      |
+|               |                            |
+|---------------|----------------------------|
+
+Respuesta esperada:
+
+```json
+{
+  "user": {
+    "email": "usuario@ejemplo.com",
+    "role": "user",
+    ...
+  }
+}
+```
+
+### 🔑 POST /api/sessions/forgot-password
+
+Descripción: Envía un correo con un enlace para recuperar la contraseña.
+
+Body (JSON):
+
+```json
+{
+  "email": "usuario@ejemplo.com"
+}
+```
+
+Respuesta esperada:
+
+```json
+{
+  "status": "success",
+  "message": "Correo de recuperación enviado"
+}
+```
+
+### 🔁 POST /api/sessions/reset-password
+
+Descripción: Cambia la contraseña usando el token recibido por correo.
+
+Body (JSON):
+
+```json
+{
+  "token": "token_de_recuperacion",
+  "newPassword": "nuevaContraseñaSegura123"
+}
+```
+
+Respuesta esperada (JSON o renderizado de vista):
+
+```json
+{
+  "status": "success",
+  "message": "Contraseña actualizada correctamente"
+}
+```
+O puede redirigir a la vista de login con un mensaje.
+
+
 
 ## 🖼️ Vistas Renderizadas
 
@@ -180,14 +279,17 @@ npm install
 ├── config/             # Configuración general y JWT
 ├── controllers/        # Controladores REST
 ├── daos/               # Acceso a datos (Mongo)
+├── DTO/                # Data transfer Object p/comunicación
 ├── middlewares/        # Autorización por rol
-├── public/img/         # Imágenes estáticas
 ├── repositories/       # Encapsula lógica DAO
 ├── routes/             # Rutas Express
 ├── services/           # Lógica de negocio
 ├── utils/              # Helpers
 ├── views/              # Vistas Handlebars
 └── server.js           # Punto de entrada
+
+/public/img/         # Imágenes estáticas
+
 ## ✨ Autor
 
 **Nicolás Toledo**  
@@ -197,5 +299,5 @@ npm install
 
 ---
 
-🧪 **Listo para tu entrega final. ¡Buen trabajo, colega!**  
+🧪 **Gracias profe, por leer toda la documentación.**  
 🖖 *Live long and code.*

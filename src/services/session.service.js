@@ -28,6 +28,8 @@ class SessionService {
       expiresIn: "1h",
     });
 
+    console.log("De manera muy insegura, pero a efectos de ser evaluado, dejo el token que va al mail: " + token);
+
     const resetLink = `http://localhost:${config.PORT || 8080}/views/reset-password?token=${token}`;
     await sendPasswordResetEmail(email, resetLink);
   }

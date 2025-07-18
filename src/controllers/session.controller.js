@@ -42,7 +42,7 @@ class SessionsController {
     const { email } = req.body;
     try {
       await sessionService.sendRecoveryEmail(email);
-      res.json({ status: "success", message: "Correo de recuperación enviado" });
+      res.json({ status: "success", message: "Correo de recuperación enviado. El Token para pruebas está en consola de VS" });
     } catch (err) {
       res.status(500).json({ status: "error", message: err.message });
     }
