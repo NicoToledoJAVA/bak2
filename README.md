@@ -691,6 +691,8 @@ Respuesta esperada (200 OK):
 └── server.js           # Punto de entrada
 
 /public/img/         # Imágenes estáticas
+```
+
 
 ## ✨ Autor
 
