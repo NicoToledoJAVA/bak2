@@ -212,82 +212,203 @@ Body:
 }
 ```
 
-🔍 GET /api/products/:pid
-Descripción: Devuelve los detalles de un producto específico por su ID.
+🔄 Respuesta esperada: 
 
-Parámetro URL:
-
-:pid → ID del producto.
-
-Body: No requiere.
-
-Ejemplo:
-
-bash
-Copiar
-Editar
-GET /api/products/64e91c1aef00cc1ddf123456
-➕ POST /api/products
-Descripción: Crea un nuevo producto.
-
-Header:
-
-Content-Type: application/json
-
-Authorization: Bearer <JWT> (si el endpoint requiere autenticación).
-
-Body (JSON):
-
-json
-Copiar
-Editar
+Body:
+```json
 {
-  "title": "Zapatillas Running",
-  "description": "Zapatillas cómodas para correr",
-  "code_bar": "0012345678906",
-  "product_number": 1002,
-  "price": 79.99,
+  "message": "Producto creado exitosamente",
+  "product": {
+    "_id": "64e2f7b7a01c3a76c8302a6d",
+    "title": "Título del producto",
+    "description": "Descripción del producto",
+    "code_bar": "Código de barras del producto",
+    "product_number": 12345,
+    "price": 999.99,
+    "status": true,
+    "stock": 100,
+    "category": "Categoría del producto",
+    "thumbnails": [
+      "https://ruta-a-la-imagen.com/imagen.jpg"
+    ],
+    "createdAt": "2025-07-15T21:34:56.000Z",
+    "updatedAt": "2025-07-15T21:34:56.000Z"
+  }
+}
+```
+
+### 👥 GET /api/products/getAll/:role
+
+> 📦 **MAIN VIEW** Descripción: Renderiza una vista HTML personalizada para el usuario según su rol (ADMIN o USER).
+Dependiendo de si es USER o ADMIN, permitirá agregar al carrito (USER) o EDITAR y ELIMINAR productos (ADMIN).
+Este endpoint no devuelve un JSON sino una página visual con los productos listados.
+
+Parámetros:
+
+```
+:role: string que indica el tipo de usuario (admin, user)
+```
+
+> 🔒 **¡ATENCIÓN!** Requiere autenticación JWT. Se debe enviar el token en los headers.
+
+Headers:
+
+|     KEY:      |           VALUE:           |
+|---------------|----------------------------|
+|Authorization: |    Bearer <token_JWT>      |
+|               |                            |
+
+---
+
+### 🌐 GET /api/products/
+Descripción: Devuelve un array con todos los productos disponibles en formato JSON. Es un endpoint público y no requiere autenticación.
+
+Respuesta esperada:
+
+```json
+{
+    "status": "success",
+    [
+        {
+          "_id": "64e2f7b7a01c3a76c8302a6d",
+          "title": "Título del producto",
+          "description": "Descripción del producto",
+          "code_bar": "Código de barras",
+          "product_number": 12345,
+          "price": 999.99,
+          "status": true,
+          "stock": 100,
+          "category": "Categoría del producto",
+          "thumbnails": ["https://ruta-a-la-imagen.com/imagen.jpg"]
+          ... Demás atributos
+        },
+        {
+          ... Otros productos
+        }
+    ]
+}
+```
+
+### 🔍 GET /api/products/id/:id
+Descripción: Devuelve un producto específico según su ID de base de datos.
+
+Parámetros:
+
+```
+:id: ID del producto (ObjectId de MongoDB)
+``` 
+
+Respuesta esperada:
+
+```json
+{
+  "_id": "64e2f7b7a01c3a76c8302a6d",
+  "title": "Título del producto",
+  "description": "Descripción del producto",
+  "code_bar": "Código de barras",
+  "product_number": 12345,
+  "price": 999.99,
   "status": true,
-  "stock": 50,
-  "category": "Calzado",
-  "thumbnails": ["https://miurl.com/zapatillas.jpg"]
+  "stock": 100,
+  "category": "Categoría del producto",
+  "thumbnails": ["https://ruta-a-la-imagen.com/imagen.jpg"]
 }
-✏️ PUT /api/products/:pid
-Descripción: Actualiza un producto existente.
+```
 
-Parámetro URL:
+### 🔢 GET /api/products/num/:num
+Descripción: Devuelve un producto específico según su número ordinal (product_number).
 
-:pid → ID del producto.
+Parámetros:
 
-Header:
+```
+:num: número de producto
+```
 
-Content-Type: application/json
+Respuesta esperada: igual a la de búsqueda por ID.
 
-Authorization: Bearer <JWT> (si el endpoint está protegido).
+### ✏️ PUT /api/products/id/:id
+Descripción: Permite actualizar parcialmente o completamente un producto por su ID.
+Solo accesible por usuarios con rol ADMIN.
 
-Body (ejemplo):
+Headers:
 
-json
-Copiar
-Editar
+|     KEY:      |           VALUE:           |
+|---------------|----------------------------|
+|Authorization: |    Bearer <token_JWT>      |
+|               |                            |
+
+---
+
+> ⚠️ **¡ATENCIÓN!** Este endpoint requiere autenticación con rol ADMIN. Si no se proporciona el token válido, la solicitud será rechazada con un error 401 o 403.
+
+Body esperado (campos modificables):
+
+```json
 {
-  "price": 89.99,
-  "stock": 40
+  "title": "Nuevo título del producto",
+  "price": 799.99,
+  "stock": 200
 }
-❌ DELETE /api/products/:pid
-Descripción: Elimina un producto por ID.
+```
+Respuesta esperada:
 
-Parámetro URL:
+```json
+{
+  "message": "Producto actualizado correctamente",
+  "updatedProduct": {
+    "_id": "64e2f7b7a01c3a76c8302a6d",
+    "title": "Nuevo título del producto",
+    "price": 799.99,
+    "stock": 200,
+    "...": "..."
+  }
+}
+```
 
-:pid → ID del producto.
+### 🗑 DELETE /api/products/id/:id
+Descripción: Elimina un producto por su ID. Solo ADMIN.
 
-Header:
+Headers:
 
-Authorization: Bearer <JWT> (si es necesario).
+|     KEY:      |           VALUE:           |
+|---------------|----------------------------|
+|Authorization: |    Bearer <token_JWT>      |
+|               |                            |
 
-Body: No requiere.
+---
+
+> ⚠️ **¡ATENCIÓN!** Este endpoint requiere autenticación con rol ADMIN. Si no se proporciona el token válido, la solicitud será rechazada con un error 401 o 403.
 
 
+Respuesta:
+
+```json
+{
+  "message": "Producto eliminado correctamente"
+}
+```
+
+### 🗑 DELETE /api/products/num/:num
+Descripción: Elimina un producto por su número de producto (atributo num). Solo ADMIN.
+
+Headers:
+
+|     KEY:      |           VALUE:           |
+|---------------|----------------------------|
+|Authorization: |    Bearer <token_JWT>      |
+|               |                            |
+
+---
+
+> ⚠️ **¡ATENCIÓN!** Este endpoint requiere autenticación con rol ADMIN. Si no se proporciona el token válido, la solicitud será rechazada con un error 401 o 403.
+
+Respuesta:
+
+```json
+{
+  "message": "Producto eliminado correctamente"
+}
+```
 
 ## 👤 Usuarios
 
