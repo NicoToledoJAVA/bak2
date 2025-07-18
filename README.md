@@ -82,13 +82,14 @@ Descripción: Devuelve los datos del usuario autenticado.
 
 Headers:
 
-```php-template
+
 |---- KEY: -----|-----------VALUE------------|
 |               |                            |
 |Authorization: |    Bearer <token_JWT>      |
 |               |                            |
 |---------------|----------------------------|
-```
+
+---
 
 Respuesta esperada:
 
