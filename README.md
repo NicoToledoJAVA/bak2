@@ -88,6 +88,7 @@ Headers:
 |Authorization: |    Bearer <token_JWT>      |
 |               |                            |
 |---------------|----------------------------|
+```
 
 Respuesta esperada:
 
