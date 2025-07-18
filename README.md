@@ -94,9 +94,11 @@ Respuesta esperada:
 ```json
 {
   "user": {
-    "email": "usuario@ejemplo.com",
-    "role": "user",
-    ...
+    "first_name": "nombre",
+    "last_name": "apellido",
+    "email": "nombreapellido@dominio.com",
+    "age": 99,
+    "role": "USER"
   }
 }
 ```
@@ -166,15 +168,15 @@ O puede redirigir a la vista de login con un mensaje.
 
 ## 📦 Productos
 
-| Endpoint                      | Método | Acceso      |
-|-------------------------------|--------|-------------|
-| `/api/products/`             | GET    | Público     |
-| `/api/products/id/:id`       | GET    | Público     |
-| `/api/products/num/:num`     | GET    | Público     |
-| `/api/products`              | POST   | Solo ADMIN  |
-| `/api/products/id/:id`       | PUT    | Solo ADMIN  |
-| `/api/products/id/:id`       | DELETE | Solo ADMIN  |
-| `/api/products/num/:num`     | DELETE | Solo ADMIN  |
+| Endpoint                      | Método | Acceso      | Descripción                         |
+|-------------------------------|--------|-------------|-------------------------------------|
+| `/api/products/`             | GET    | Público     | Devuelve todos los productos         |
+| `/api/products/id/:id`       | GET    | Público     | Devuelve un producto por ID          |
+| `/api/products/num/:num`     | GET    | Público     | Devuelve un producto por NUM ordinal |
+| `/api/products`              | POST   | Solo ADMIN  | Crea un nuevo producto               |
+| `/api/products/id/:id`       | PUT    | Solo ADMIN  | Actualiza un producto existente      |
+| `/api/products/id/:id`       | DELETE | Solo ADMIN  | Elimina un producto por ID           |
+| `/api/products/num/:num`     | DELETE | Solo ADMIN  | Elimina un producto por NUM ordinal  |
 
 ---
 
