@@ -168,17 +168,126 @@ O puede redirigir a la vista de login con un mensaje.
 
 ## 📦 Productos
 
-| Endpoint                      | Método | Acceso      | Descripción                         |
-|-------------------------------|--------|-------------|-------------------------------------|
-| `/api/products/`             | GET    | Público     | Devuelve todos los productos         |
-| `/api/products/id/:id`       | GET    | Público     | Devuelve un producto por ID          |
-| `/api/products/num/:num`     | GET    | Público     | Devuelve un producto por NUM ordinal |
-| `/api/products`              | POST   | Solo ADMIN  | Crea un nuevo producto               |
-| `/api/products/id/:id`       | PUT    | Solo ADMIN  | Actualiza un producto existente      |
-| `/api/products/id/:id`       | DELETE | Solo ADMIN  | Elimina un producto por ID           |
-| `/api/products/num/:num`     | DELETE | Solo ADMIN  | Elimina un producto por NUM ordinal  |
+| Endpoint                    | Método | Acceso      | Descripción                          |
+|-----------------------------|--------|-------------|--------------------------------------|
+| `/api/products`             | POST   | Solo ADMIN  | Crea un nuevo producto               |
+| `/api/products/getAll/:role`| GET    | ADMIN, USER | Renderiza vista dependiendo del rol  |
+| `/api/products/`            | GET    | Público     | Devuelve todos los productos         |
+| `/api/products/id/:id`      | GET    | Público     | Devuelve un producto por ID          |
+| `/api/products/num/:num`    | GET    | Público     | Devuelve un producto por NUM ordinal |
+| `/api/products/id/:id`      | PUT    | Solo ADMIN  | Actualiza un producto existente      |
+| `/api/products/id/:id`      | DELETE | Solo ADMIN  | Elimina un producto por ID           |
+| `/api/products/num/:num`    | DELETE | Solo ADMIN  | Elimina un producto por NUM ordinal  |
 
 ---
+
+### ✅ POST /api/products
+Descripción: Devuelve un array con todos los productos disponibles.
+
+Headers:
+
+|     KEY:      |           VALUE:           |
+|---------------|----------------------------|
+|Authorization: |    Bearer <token_JWT>      |
+|               |                            |
+
+---
+
+Prestar atención: Pasarle un ADMIN
+.
+Body:
+```json
+{
+  "title": "Título del producto",
+  "description": "Descripción del producto",
+  "code_bar": "Código de barras del producto",
+  "product_number": 12345,
+  "price": 999.99,
+  "status": true,
+  "stock": 100,
+  "category": "Categoría del producto",
+  "thumbnails": [
+    "https://ruta-a-la-imagen.com/imagen.jpg"
+  ]
+}
+```
+
+🔍 GET /api/products/:pid
+Descripción: Devuelve los detalles de un producto específico por su ID.
+
+Parámetro URL:
+
+:pid → ID del producto.
+
+Body: No requiere.
+
+Ejemplo:
+
+bash
+Copiar
+Editar
+GET /api/products/64e91c1aef00cc1ddf123456
+➕ POST /api/products
+Descripción: Crea un nuevo producto.
+
+Header:
+
+Content-Type: application/json
+
+Authorization: Bearer <JWT> (si el endpoint requiere autenticación).
+
+Body (JSON):
+
+json
+Copiar
+Editar
+{
+  "title": "Zapatillas Running",
+  "description": "Zapatillas cómodas para correr",
+  "code_bar": "0012345678906",
+  "product_number": 1002,
+  "price": 79.99,
+  "status": true,
+  "stock": 50,
+  "category": "Calzado",
+  "thumbnails": ["https://miurl.com/zapatillas.jpg"]
+}
+✏️ PUT /api/products/:pid
+Descripción: Actualiza un producto existente.
+
+Parámetro URL:
+
+:pid → ID del producto.
+
+Header:
+
+Content-Type: application/json
+
+Authorization: Bearer <JWT> (si el endpoint está protegido).
+
+Body (ejemplo):
+
+json
+Copiar
+Editar
+{
+  "price": 89.99,
+  "stock": 40
+}
+❌ DELETE /api/products/:pid
+Descripción: Elimina un producto por ID.
+
+Parámetro URL:
+
+:pid → ID del producto.
+
+Header:
+
+Authorization: Bearer <JWT> (si es necesario).
+
+Body: No requiere.
+
+
 
 ## 👤 Usuarios
 

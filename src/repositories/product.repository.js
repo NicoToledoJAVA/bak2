@@ -7,7 +7,7 @@ const productDAO = new ProductDAO();
 class ProductRepository {
 
   create(product) {
-    return productDAO.saveProduct(product);
+    return productDAO.createProduct(product);
   }
 
   get model() {
