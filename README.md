@@ -500,7 +500,7 @@ Respuesta:
 
 ## 📁 Archivos Postman
 
-> 📄 Archivo de prueba: `Backend2.postman_collection.json` (incluido en el directorio raíz)
+> 📄 Archivo de prueba: `Baken2.postman_collection.json` (incluido en el directorio raíz)
 
 ---
 
