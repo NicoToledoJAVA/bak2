@@ -193,8 +193,8 @@ Headers:
 
 ---
 
-Prestar atención: Pasarle un ADMIN
-.
+> ⚠️ **¡ATENCIÓN!** Este endpoint requiere autenticación con rol ADMIN. Si no se proporciona el token válido, la solicitud será rechazada con un error 401 o 403.
+
 Body:
 ```json
 {
