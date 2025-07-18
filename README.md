@@ -82,9 +82,8 @@ Descripción: Devuelve los datos del usuario autenticado.
 
 Headers:
 
-
-|---- KEY: -----|-----------VALUE------------|
-|               |                            |
+|     KEY:      |           VALUE:           |
+|---------------|----------------------------|
 |Authorization: |    Bearer <token_JWT>      |
 |               |                            |
 |---------------|----------------------------|
