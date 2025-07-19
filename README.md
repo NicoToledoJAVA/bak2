@@ -682,6 +682,15 @@ Respuesta esperada:
 ### 🛒 GET /api/carts/my-cart
 Descripción: Devuelve un objeto JSON 'cart' con el carrito del usuario actualmente logueado. Es un endpoint público.
 
+Headers:
+
+|     KEY:      |           VALUE:           |
+|---------------|----------------------------|
+|Authorization: |    Bearer <token_JWT>      |
+|               |                            |
+
+---
+
 Respuesta esperada:
 
 ```json
@@ -709,7 +718,7 @@ Respuesta esperada:
     }
 }
 ```
-> ⚠️ **¡ATENCIÓN!** Si bien es un endpoint público, requiere un token de autorización para poder devolverte el carrito del usuario logueado.
+> ⚠️ **¡ATENCIÓN!** Si bien es un endpoint público, requiere un token de autorización en el header (de la manera descripta arriba) para poder devolverte el carrito del usuario logueado.
 
 ### 🔹 POST /api/carts
 Descripción: Crear un carrito vacío asociado a un usuario.
@@ -729,6 +738,22 @@ Respuestas posibles:
 500 Internal Server Error: Error del servidor o usuario inexistente.
 ```
 
+Respuesta esperada:
+
+```json
+{
+    "status": "success",
+    "payload": {
+        "user": "user_id",
+        "products": [],
+        "total": 0,
+        "num": 18,
+        "_id": "cart_id"
+    }
+}
+```
+
+
 ### 🔹 POST /api/carts/with-products
 Descripción: Crea un nuevo carrito con productos iniciales.
 
@@ -745,6 +770,34 @@ Respuestas posibles:
 400 Bad Request: Falta userID o array de products.
 500 Internal Server Error: Usuario no existe, productos inválidos o sin stock.
 ```
+
+Respuesta esperada:
+
+```json
+{
+    "status": "success",
+    "payload": {
+        "products": [
+            {
+                "num": 5,
+                "title": "product_title",
+                "price": 99.99,
+                "quantity": 1,
+                "_id": "product_id"
+            },
+           
+            {
+                 ... Demás productos
+            }
+        ],
+        "total": 99.99,
+        "num": 19,
+        "_id": "cart_id"
+    }
+}
+```
+
+
 
 ### 🔹 PUT /api/carts/id/:id
 Descripción: Actualiza completamente un carrito existente por su ID (reemplaza contenido).

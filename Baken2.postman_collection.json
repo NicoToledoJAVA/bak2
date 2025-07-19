@@ -140,7 +140,7 @@
 			"response": []
 		},
 		{
-			"name": "POST-[Products] create-product",
+			"name": "POST-[Product] create-product",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -174,7 +174,7 @@
 			"response": []
 		},
 		{
-			"name": "GET-[Products] Main view",
+			"name": "GET-[Product] Main view",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -201,7 +201,7 @@
 			"response": []
 		},
 		{
-			"name": "GET-[Products] getAll",
+			"name": "GET-[Product] getAll",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -221,7 +221,7 @@
 			"response": []
 		},
 		{
-			"name": "GET-[Products] getByID",
+			"name": "GET-[Product] getByID",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -242,7 +242,7 @@
 			"response": []
 		},
 		{
-			"name": "GET-[Products] getByNUM",
+			"name": "GET-[Product] getByNUM",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -367,12 +367,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/users",
-					"protocol": "http",
+					"raw": "{{base_url}}:{{port}}/api/users",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"users"
@@ -387,12 +386,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/users/",
-					"protocol": "http",
+					"raw": "{{base_url}}:{{port}}/api/users/",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"users",
@@ -408,12 +406,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/users/id/68759e615c1dbbfb118e6d5a",
-					"protocol": "http",
+					"raw": "{{base_url}}:{{port}}/api/users/id/68759e615c1dbbfb118e6d5a",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"users",
@@ -430,12 +427,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/users/num/10",
-					"protocol": "http",
+					"raw": "{{base_url}}:{{port}}/api/users/num/10",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"users",
@@ -461,12 +457,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/users/id/68759e615c1dbbfb118e6d5a",
-					"protocol": "http",
+					"raw": "{{base_url}}:{{port}}/api/users/id/68759e615c1dbbfb118e6d5a",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"users",
@@ -492,12 +487,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/users/num/11",
-					"protocol": "http",
+					"raw": "{{base_url}}:{{port}}/api/users/num/11",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"users",
@@ -514,17 +508,16 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/users/id/685c189ae18d7314811539e7",
-					"protocol": "http",
+					"raw": "{{base_url}}:{{port}}/api/users/id/687a5f4accc57f15dfc49ca4",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"users",
 						"id",
-						"685c189ae18d7314811539e7"
+						"687a5f4accc57f15dfc49ca4"
 					]
 				}
 			},
@@ -536,17 +529,171 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/users/num/3",
-					"protocol": "http",
+					"raw": "{{base_url}}:{{port}}/api/users/num/11",
 					"host": [
-						"localhost"
+						"{{base_url}}"
 					],
-					"port": "8080",
+					"port": "{{port}}",
 					"path": [
 						"api",
 						"users",
 						"num",
-						"3"
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-[Cart] getAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}:{{port}}/api/carts/",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"carts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-[Cart] getCartByID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}:{{port}}/api/carts/id/687319db2f4af46b68888640",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"carts",
+						"id",
+						"687319db2f4af46b68888640"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-[Cart] getCurrentCart",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer <{{auth_token}}>",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}:{{port}}/api/carts/my-cart",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"carts",
+						"my-cart"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-[Cart] createEmptyCart",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userID\": \"687319ce2f4af46b6888863d\"\r\n}\r\n\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}:{{port}}/api/carts/",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"carts",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST-[Cart] createCartWithProducts",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"userID\": \"687319ce2f4af46b6888863d\",\r\n  \"products\": [5, 9, 13]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}:{{port}}/api/carts/with-products",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"carts",
+						"with-products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productNum\": \"123456\",\r\n  \"quantity\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}:{{port}}/api/carts/id/68742204f7f9f3aab8b484d9",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"carts",
+						"id",
+						"68742204f7f9f3aab8b484d9"
 					]
 				}
 			},

@@ -16,7 +16,7 @@ class CartController {
     }
   
     try {
-      const result = await cartService.createCart(userID, []);
+      const result = await cartService.createEmptyCart(userID, []);
       return res.status(201).json({ status: "success", payload: result });
     } catch (error) {
       return res.status(500).json({ status: "error", message: error.message });

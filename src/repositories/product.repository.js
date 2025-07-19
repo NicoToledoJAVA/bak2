@@ -26,7 +26,7 @@ class ProductRepository {
     return productDAO.getProductByNum(num);
   } 
 
-  getByNumbersArray(num) {
+  getByNumbersArray(numbersArray) {
     return productDAO.getProductsByProductNumbers(numbersArray);
   } 
 
