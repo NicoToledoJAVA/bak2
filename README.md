@@ -797,8 +797,6 @@ Respuesta esperada:
 }
 ```
 
-
-
 ### 🔹 PUT /api/carts/id/:id
 Descripción: Actualiza completamente un carrito existente por su ID (reemplaza contenido).
 
@@ -806,12 +804,28 @@ Body JSON esperado:
 ```json
 {
   "products": [
-    { "num": 1001, "title": "Producto A", "price": 50, "quantity": 2 },
-    { "num": 1002, "title": "Producto B", "price": 30, "quantity": 1 }
+    {
+       "num": 1001, 
+       "title": "Producto A", 
+       "price": 50, 
+       "quantity": 2 
+    },
+    { 
+       "num": 1002, 
+       "title": "Producto B", 
+       "price": 30, 
+       "quantity": 1 
+    },
+    {
+       ... Demás productos
+    }    
   ],
-  "total": 130
+  "num": 8888,
+  ... Otros atributos de 'cart'  
+      
 }
 ```
+
 Respuestas posibles:
 ```
 200 OK: Carrito actualizado.
@@ -855,7 +869,7 @@ Respuestas posibles:
 ```
 
 ### 🔹 DELETE /api/carts/id/:id/product/num/:num
-Descripción: Elimina un producto específico del carrito, identificándolo por su num.
+Descripción: Elimina un producto específico del carrito, identificando al carrito por su id y al producto por su num.
 
 Parámetros URL:
 ```

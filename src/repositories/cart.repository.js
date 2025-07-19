@@ -26,8 +26,8 @@ class CartRepository {
     return cartDAO.getCartByNum(num);
   }
 
-  updateById(cid, data) {
-    return cartDAO.updateCart(cid, data);
+  updateById(id, data) {
+    return cartDAO.updateCart(id, data);
   }
 
   deleteById(cid) {
