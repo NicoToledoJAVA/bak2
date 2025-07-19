@@ -613,6 +613,224 @@ Respuesta esperada (200 OK):
 
 ---
 
+### 🛒🛒🛒 GET /api/carts/
+Descripción: Devuelve un array con todos los carritos disponibles en formato JSON. Es un endpoint público y no requiere autenticación.
+
+Respuesta esperada:
+
+```json
+{
+    "status": "success",
+    "carts": [
+        {
+            "_id": "cart_id",
+            "user": "user_id",
+            "products": [
+                {
+                    "_id": "product_id",
+                    "num": 1,
+                    "title": "product_title",
+                    "price": 99.99,
+                    "quantity": 1
+                },
+                {
+                  ... Demás productos
+                }  
+            ],
+            "total": 999.99,
+            "num": 1
+        },
+         {
+          ... Otros carts
+        }
+        
+    ]
+}
+```
+
+### 🛒 GET /api/carts/id/:id
+Descripción: Devuelve un objeto JSON 'cart' con todos los productos que contiene y sus atributos de cart. Es un endpoint público y no requiere autenticación.
+
+Respuesta esperada:
+
+```json
+{
+    "status": "success",
+    "cart": {
+        "_id": "cart_id",
+        "user": "user_id",
+        "products": [
+            {
+               "_id": "product_id",
+               "num": 1,
+               "title": "product_title",
+               "price": 99.99,
+               "quantity": 1
+            },
+            
+            {
+                ... Demás productos
+            }  
+
+        ],
+        "price": 99.99,
+        "num": 1
+    }
+}
+```
+
+### 🛒 GET /api/carts/my-cart
+Descripción: Devuelve un objeto JSON 'cart' con el carrito del usuario actualmente logueado. Es un endpoint público.
+
+Respuesta esperada:
+
+```json
+{
+    "result": "ok",
+    "cart": {
+        "_id": "cart_id",
+        "user": "user_id",
+        "products": [
+            {
+               "_id": "product_id",
+               "num": 1,
+               "title": "product_title",
+               "price": 99.99,
+               "quantity": 1
+            },
+            
+            {
+                ... Demás productos
+            }  
+
+        ],
+        "price": 99.99,
+        "num": 1
+    }
+}
+```
+> ⚠️ **¡ATENCIÓN!** Si bien es un endpoint público, requiere un token de autorización para poder devolverte el carrito del usuario logueado.
+
+### 🔹 POST /api/carts
+Descripción: Crear un carrito vacío asociado a un usuario.
+
+Body JSON esperado:
+
+```json
+{
+  "userID": "64fc0a991e8f4c001a4e497a"
+}
+```
+Respuestas posibles:
+
+```
+201 Created: Carrito creado correctamente.
+400 Bad Request: Falta el userID.
+500 Internal Server Error: Error del servidor o usuario inexistente.
+```
+
+### 🔹 POST /api/carts/with-products
+Descripción: Crea un nuevo carrito con productos iniciales.
+
+Body JSON esperado:
+```json
+{
+  "userID": "64fc0a991e8f4c001a4e497a",
+  "products": [1001, 1002, 1003]
+}
+```
+Respuestas posibles:
+```
+201 Created: Carrito creado correctamente.
+400 Bad Request: Falta userID o array de products.
+500 Internal Server Error: Usuario no existe, productos inválidos o sin stock.
+```
+
+### 🔹 PUT /api/carts/id/:id
+Descripción: Actualiza completamente un carrito existente por su ID (reemplaza contenido).
+
+Body JSON esperado:
+```json
+{
+  "products": [
+    { "num": 1001, "title": "Producto A", "price": 50, "quantity": 2 },
+    { "num": 1002, "title": "Producto B", "price": 30, "quantity": 1 }
+  ],
+  "total": 130
+}
+```
+Respuestas posibles:
+```
+200 OK: Carrito actualizado.
+400 Bad Request: ID inválido o body mal formado.
+500 Internal Server Error: Fallo en actualización.
+```
+
+### 🔹 PUT /api/carts/addToCart/:cid/:pid
+Descripción: Agrega un producto al carrito indicado.
+
+Parámetros URL:
+```
+cid: ID del carrito
+pid: ID del producto
+```
+
+Respuestas posibles:
+```
+200 OK: Producto agregado correctamente.
+400 Bad Request: Carrito o producto no encontrado, o sin stock.
+500 Internal Server Error: Error inesperado.
+```
+
+### 🔹 PUT /api/carts/id/:id/product
+Descripción: Actualiza la cantidad de un producto específico en el carrito.
+
+Body JSON esperado:
+```json
+{
+  "productNum": 1001,
+  "quantity": 3
+}
+```
+
+Respuestas posibles:
+```
+200 OK: Cantidad actualizada.
+400 Bad Request: Faltan campos o stock insuficiente.
+404 Not Found: Carrito o producto inexistente.
+500 Internal Server Error: Error en operación.
+```
+
+### 🔹 DELETE /api/carts/id/:id/product/num/:num
+Descripción: Elimina un producto específico del carrito, identificándolo por su num.
+
+Parámetros URL:
+```
+id: ID del carrito
+num: Número del producto
+```
+
+Respuestas posibles:
+```
+200 OK: Producto eliminado del carrito.
+400 Bad Request: Número inválido.
+500 Internal Server Error: Producto no encontrado o error en la operación.
+```
+
+### 🔹 DELETE /api/carts/id/:id
+Descripción: Elimina todo el carrito por su ID.
+
+Parámetros URL:
+```
+id: ID del carrito
+```
+Respuestas posibles:
+```
+200 OK: Carrito eliminado.
+404 Not Found: Carrito no encontrado.
+500 Internal Server Error: Error al intentar eliminar.
+```
+
 ## 🎟️ Tickets
 
 | Función     | Descripción                                                                 |
@@ -698,7 +916,7 @@ Respuesta esperada (200 OK):
 
 **Nicolás Toledo**  
 **Curso**: Backend II – CoderHouse  
-📩 **Contacto**: gestiones-judiciales@hotmail.com  
+📩 **Contacto**: nicotole@gmail.com
 📍 **Ciudad**: Posadas-Misiones-Argentina
 
 ---

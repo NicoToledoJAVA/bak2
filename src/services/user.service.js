@@ -82,7 +82,7 @@ class UserService {
     return user;
   }
 
-  async tryEmail(email) {
+  async getByEmail(email) {
     if (!email || typeof email !== "string") {
       throw new Error("Email inválido");
     }
