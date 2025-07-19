@@ -670,19 +670,117 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "PUT-[Cart]UpdateCart",
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"productNum\": \"123456\",\r\n  \"quantity\": 2\r\n}",
+					"raw": "{\r\n  \"products\": [\r\n    {\r\n      \"num\": 77,\r\n      \"title\": \"chuza de pesca\",\r\n      \"price\": 21000.99,\r\n      \"quantity\": 78\r\n    },\r\n    {\r\n      \"num\": 88,\r\n      \"title\": \"red de pesca\",\r\n      \"price\": 25001.99,\r\n      \"quantity\": 81\r\n    }\r\n  ],\r\n  \"num\": 8888\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
+				"url": {
+					"raw": "{{base_url}}:{{port}}/api/carts/id/687319db2f4af46b68888640",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"carts",
+						"id",
+						"687319db2f4af46b68888640"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-[Cart]addProductToCart",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}:{{port}}/api/carts/addToCart/68742676afdde85614cb65dd/687318f82f4af46b6888863b",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"carts",
+						"addToCart",
+						"68742676afdde85614cb65dd",
+						"687318f82f4af46b6888863b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT-[Cart]UpdateProductQuantity",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productNum\": 2,\r\n  \"quantity\": 3\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}:{{port}}/api/carts/id/68742905afdde85614cb65ec/product",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"carts",
+						"id",
+						"68742905afdde85614cb65ec",
+						"product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE-[Cart]DeleteProductFromCart",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}:{{port}}/api/carts/id/687319db2f4af46b68888640/product/num/88",
+					"host": [
+						"{{base_url}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"carts",
+						"id",
+						"687319db2f4af46b68888640",
+						"product",
+						"num",
+						"88"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE-[Cart]DeleteCart",
+			"request": {
+				"method": "DELETE",
+				"header": [],
 				"url": {
 					"raw": "{{base_url}}:{{port}}/api/carts/id/68742204f7f9f3aab8b484d9",
 					"host": [
