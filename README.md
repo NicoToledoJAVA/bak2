@@ -975,6 +975,8 @@ descuenta las cantidades disponibles, genera un ticket y vacía el carrito.
 > 🧑‍💻 **Autenticación:** Requiere token JWT (mediante passport.authenticate("jwt")).
 
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
+
 Parámetros:
 ```
 :id – ID del carrito a procesar.
