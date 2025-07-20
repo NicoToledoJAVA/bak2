@@ -469,6 +469,8 @@ Respuesta:
 
 ---
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
+
 ## 👤 Usuarios (/api/users)
 
 ### 📄 POST /api/user/
