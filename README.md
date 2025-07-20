@@ -181,7 +181,7 @@ O puede redirigir a la vista de login con un mensaje.
 
 
 
-## 🖼️ Vistas Renderizadas
+<h2 id="vistas-renderizadas">🖼️ Vistas Renderizadas</h2>
 
 | Ruta                             | Vista             | Descripción                                           |
 |----------------------------------|-------------------|-------------------------------------------------------|
