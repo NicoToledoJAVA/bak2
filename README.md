@@ -905,11 +905,15 @@ Respuestas posibles:
 
 | Endpoint                                   | Método | Descripción                               |
 |--------------------------------------------|--------|-------------------------------------------|
-| `/api/carts/:id/checkout`                  | POST   | Todos los carritos                        |
+| `/api/carts/:id/checkout`                  | POST   | Se vale de la sesión, ejecutando doSale() |
+
+---
+
 | Función     | Descripción                                                                 |
 |-------------|-----------------------------------------------------------------------------|
-| `doSale()`  | Verifica stock, descuenta cantidades y genera un ticket con `UUID`, fecha, |
+| `doSale()`  | Verifica stock, descuenta cantidades y genera un ticket con `UUID`, fecha,  |
 |             | total, y productos vendidos al usuario comprador.                           |
+
 ---
 
 
