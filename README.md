@@ -31,7 +31,7 @@ npm install
 3. [🚀 Instalación](#-instalación)
 4. [🌐 Endpoints y Vistas](#-endpoints-y-vistas)
 5. [🔐 Autenticación con JWT](#-jwt)
-6. [👤 Gestión de Usuarios]
+6. 👤 Gestión de Usuarios
 
     6.1 [Registro y login](#-post-apisessionslogin)  
     6.2 [Recuperación de contraseña](#-post-apisessionsforgot-password)  
@@ -39,13 +39,19 @@ npm install
 
 7. [🖼️ Vistas Renderizadas](#-vistas-renderizadas)
 8. [📦 Gestión de Productos](#-productos)
+
     8.1 [Endpoints públicos](#-get-apiproducts)  
     8.2 [Endpoints ADMIN](#-post-apiproducts)
+
 9. [🛒 Gestión de Carritos](#-carritos)
+
     9.1 [Creación y modificación](#-post-apicarts)  
     9.2 [Consulta y eliminación](#-delete-apicartsidid)
+
 10. [🎟️ Tickets de Compra](#-tickets)
+
     10.1 [Proceso de checkout](#-post-apicartsidcheckout)
+
 11. [🔒 Roles y Permisos](#-roles-y-permisos)
 12. [💌 Recuperación de Contraseña](#-recuperación-de-contraseña)
 
