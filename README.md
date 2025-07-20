@@ -36,7 +36,7 @@ npm install
     6.1 [Registro y login](#-post-apisessionslogin)  
     6.2 [Recuperación de contraseña](#-post-apisessionsforgot-password)  
     6.3 [CRUD de usuarios](#-post-apiuser)
-    
+
 7. [🖼️ Vistas Renderizadas](#vistas-renderizadas)
 8. [📦 Gestión de Productos](#-productos)
 
@@ -48,7 +48,7 @@ npm install
     9.1 [Creación y modificación](#-post-apicarts)  
     9.2 [Consulta y eliminación](#-delete-apicartsidid)
 
-10. [🎟️ Tickets de Compra](#-tickets)
+10. [🎟️ Tickets de Compra](#tickets)
 
     10.1 [Proceso de checkout](#-post-apicartsidcheckout)
 
@@ -931,7 +931,7 @@ Respuestas posibles:
 ```
 
 
-## 🎟️ Tickets
+<h2 id="tickets">🎟️ Tickets</h2>
 
 | Endpoint                                   | Método | Acción                                    |
 |--------------------------------------------|--------|-------------------------------------------|
