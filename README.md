@@ -936,6 +936,8 @@ Respuestas posibles:
 500 Internal Server Error: Producto no encontrado o error en la operación.
 ```
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
+
 ### 🔹 DELETE /api/carts/id/:id
 Descripción: Elimina todo el carrito por su ID.
 
