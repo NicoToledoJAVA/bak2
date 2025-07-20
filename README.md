@@ -82,6 +82,8 @@ npm install
 
 ---
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
+
 ## 👤 Autenticación (Desarrollo)
 
 ### ✅ POST /api/sessions/login
@@ -137,6 +139,8 @@ Respuesta esperada:
 }
 ```
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
+
 ### 🔑 POST /api/sessions/forgot-password
 
 Descripción: Envía un correo con un enlace para recuperar la contraseña.
@@ -181,7 +185,7 @@ Respuesta esperada (JSON o renderizado de vista):
 ```
 O puede redirigir a la vista de login con un mensaje.
 
-
+<p align="right"><a href="#indice">Ir al Índice</a></p>
 
 <h2 id="vistas-renderizadas">🖼️ Vistas Renderizadas</h2>
 
@@ -199,6 +203,8 @@ O puede redirigir a la vista de login con un mensaje.
 | `/403-forbidden`                 | 403-forbidden     | Vista de acceso denegado con imagen personalizada    |
 
 ---
+
+<p align="right"><a href="#indice">Ir al Índice</a></p>
 
 ## 📦 Productos
 
@@ -444,6 +450,8 @@ Respuesta:
 }
 ```
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
+
 ## 👤 Usuarios
 
 | Endpoint                     | Método | Descripción                    |
@@ -629,6 +637,8 @@ Respuesta esperada (200 OK):
   ]
 }
 ```
+
+<p align="right"><a href="#indice">Ir al Índice</a></p>
 
 ## 🛒 Carritos
 
@@ -932,6 +942,7 @@ Respuestas posibles:
 500 Internal Server Error: Error al intentar eliminar.
 ```
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
 
 <h2 id="tickets">🎟️ Tickets</h2>
 
@@ -1041,6 +1052,8 @@ Cada ticket contiene la siguiente información:
 
 ---
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
+
 ## 🔒 Roles y Permisos
 
 - El usuario elige su rol al registrarse: `USER` o `ADMIN`
@@ -1052,6 +1065,8 @@ Cada ticket contiene la siguiente información:
 
 ---
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
+
 ## 💌 Recuperación de Contraseña
 
 - Vista: `/views/forgot-password`
@@ -1061,6 +1076,8 @@ Cada ticket contiene la siguiente información:
 - Se impide reutilizar la misma contraseña anterior
 
 ---
+
+<p align="right"><a href="#indice">Ir al Índice</a></p>
 
 ## ✅ Cumplimiento de Requisitos (CoderHouse)
 
@@ -1080,11 +1097,15 @@ Cada ticket contiene la siguiente información:
 
 ---
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
+
 ## 📁 Archivos Postman
 
 > 📄 Archivo de prueba: `Baken2.postman_collection.json` (incluido en el directorio raíz)
 
 ---
+
+<p align="right"><a href="#indice">Ir al Índice</a></p>
 
 ## 📂 Estructura del Proyecto
 
@@ -1105,6 +1126,7 @@ Cada ticket contiene la siguiente información:
 /public/img/         # Imágenes estáticas
 ```
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
 
 ## ✨ Autor
 
@@ -1114,6 +1136,8 @@ Cada ticket contiene la siguiente información:
 📍 **Ciudad**: Posadas-Misiones-Argentina
 
 ---
+
+<p align="right"><a href="#indice">Ir al Índice</a></p>
 
 🧪 **Gracias profe, por leer toda la documentación.**  
 🖖 *Live long and code.*
