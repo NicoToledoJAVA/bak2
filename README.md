@@ -70,7 +70,7 @@ npm install
 
 ---
 
-<p align="right">[Ir al Índice](#indice)</p>
+<p align="right"><a href="#indice">Ir al Índice</a></p>
 
 ## 🔐 JWT
 
