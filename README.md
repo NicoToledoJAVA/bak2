@@ -24,7 +24,7 @@ cd bak2
 npm install
 ```
 
-# Índice
+<h1 id="indice">Índice</h1>
 
 1. [📦 Descripción General](#-ecomystika-backend-cursobackend2)
 2. [🔧 Tecnologías Utilizadas](#-tecnologías-utilizadas)
@@ -79,6 +79,8 @@ npm install
 - El frontend accede a rutas según el rol, y en caso contrario, se renderiza una vista `403-forbidden`
 
 ---
+
+[Ir al Indice](#indice)
 
 ## 👤 Autenticación (Desarrollo)
 
