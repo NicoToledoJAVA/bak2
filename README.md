@@ -300,6 +300,8 @@ Headers:
 
 ---
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
+
 ### 🌐 GET /api/products/
 Descripción: Devuelve un array con todos los productos disponibles en formato JSON. Es un endpoint público y no requiere autenticación.
 
