@@ -898,12 +898,22 @@ Respuestas posibles:
 500 Internal Server Error: Error al intentar eliminar.
 ```
 
+## 🛒 Carritos
+
+
 ## 🎟️ Tickets
 
+| Endpoint                                   | Método | Descripción                               |
+|--------------------------------------------|--------|-------------------------------------------|
+| `/api/carts/:id/checkout`                  | POST   | Todos los carritos                        |
 | Función     | Descripción                                                                 |
 |-------------|-----------------------------------------------------------------------------|
 | `doSale()`  | Verifica stock, descuenta cantidades y genera un ticket con `UUID`, fecha, |
 |             | total, y productos vendidos al usuario comprador.                           |
+---
+
+
+
 
 - Los tickets se almacenan con:
   - `code`: código único UUID

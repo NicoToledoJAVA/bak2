@@ -13,7 +13,7 @@ class CartController {
     if (!userID) {
       return res.status(400).json({ status: "error", message: "Falta el ID de usuario" });
     }
-  
+
     try {
       const result = await cartServ.createEmptyCart(userID, []);
       return res.status(201).json({ status: "success", payload: result });
@@ -109,7 +109,7 @@ class CartController {
 
 
   async addProductToCartByParams(req, res) {
-    const { cid, pid } = req.params;  
+    const { cid, pid } = req.params;
     try {
       const result = await cartServ.addProductById(cid, pid);
       res.json({ result: "ok", payload: result });
@@ -135,21 +135,21 @@ class CartController {
   }
 
 
-async deleteProductFromCart(req, res) {
-  const { id: cartId, num } = req.params;
+  async deleteProductFromCart(req, res) {
+    const { id: cartId, num } = req.params;
 
-  try {
-    const parsedNum = parseInt(num);
-    if (isNaN(parsedNum)) {
-      return res.status(400).json({ result: "error", message: "Número de producto inválido" });
+    try {
+      const parsedNum = parseInt(num);
+      if (isNaN(parsedNum)) {
+        return res.status(400).json({ result: "error", message: "Número de producto inválido" });
+      }
+
+      const updatedCart = await cartServ.removeProductFromCart(cartId, parsedNum);
+      res.json({ result: "ok", payload: updatedCart });
+    } catch (error) {
+      res.status(500).json({ result: "error", message: error.message });
     }
-
-    const updatedCart = await cartServ.removeProductFromCart(cartId, parsedNum);
-    res.json({ result: "ok", payload: updatedCart });
-  } catch (error) {
-    res.status(500).json({ result: "error", message: error.message });
   }
-}
 
   async deleteCart(req, res) {
     try {
@@ -166,28 +166,36 @@ async deleteProductFromCart(req, res) {
   async doSale(req, res) {
     const cartID = req.params.id;
     const userEmail = req.user?.email || req.body?.email;
-  
+
     if (!cartID || !userEmail) {
       return res.status(400).json({
         status: "error",
         message: "Faltan datos: ID de carrito o email"
       });
     }
-  
+
     try {
       const cart = await cartServ.getCartById(cartID);
       if (!cart) {
         return res.status(404).json({ status: "error", message: "Carrito no encontrado" });
       }
-  
+
       const ticket = await ticketServ.doSale(cart, userEmail);
-  
+
+
+      // Vaciar el carrito (manteniendo su ID, user y num)
+      await cartServ.updateCart(cartID, {
+        products: [],
+        total: 0
+      });
+
+
       // Respondemos con el ticket en la propiedad 'ticket' para el frontend
       res.status(201).json({
         status: "success",
         ticket // acá se cambia payload por ticket
       });
-  
+
     } catch (error) {
       console.error("❌ Error en doSale:", error);
       res.status(500).json({
@@ -196,7 +204,7 @@ async deleteProductFromCart(req, res) {
       });
     }
   }
-  
+
   /*
   END POINT DE VENTAS
   */
