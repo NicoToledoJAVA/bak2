@@ -69,7 +69,9 @@ npm install
 | `/api/sessions/reset-password`  | POST   | Setea nueva contraseña                     |
 
 ---
+
 <p align="right">[Ir al Índice](#indice)</p>
+
 ## 🔐 JWT
 
 - Los tokens se entregan al iniciar sesión y se guardan como cookies (`httpOnly`)
