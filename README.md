@@ -31,7 +31,7 @@ npm install
 3. [🚀 Instalación](#-instalación)
 4. [🌐 Endpoints y Vistas](#-endpoints-y-vistas)
 5. [🔐 Autenticación con JWT](#-jwt)
-6. [👤 Gestión de Usuarios](#-usuarios-apiousers)
+6. [👤 Gestión de Usuarios]
 
     6.1 [Registro y login](#-post-apisessionslogin)  
     6.2 [Recuperación de contraseña](#-post-apisessionsforgot-password)  
