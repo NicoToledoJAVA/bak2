@@ -24,6 +24,30 @@ cd bak2
 npm install
 ```
 
+# Índice
+
+1. [📦 Descripción General](#-ecomystika-backend-cursobackend2)
+2. [🔧 Tecnologías Utilizadas](#-tecnologías-utilizadas)
+3. [🚀 Instalación](#-instalación)
+4. [🌐 Endpoints y Vistas](#-endpoints-y-vistas)
+5. [🔐 Autenticación con JWT](#-jwt)
+6. [👤 Gestión de Usuarios](#-usuarios-apiousers)
+    6.1 [Registro y login](#-post-apisessionslogin)  
+    6.2 [Recuperación de contraseña](#-post-apisessionsforgot-password)  
+    6.3 [CRUD de usuarios](#-post-apiuser)
+7. [🖼️ Vistas Renderizadas](#-vistas-renderizadas)
+8. [📦 Gestión de Productos](#-productos)
+    8.1 [Endpoints públicos](#-get-apiproducts)  
+    8.2 [Endpoints ADMIN](#-post-apiproducts)
+9. [🛒 Gestión de Carritos](#-carritos)
+    9.1 [Creación y modificación](#-post-apicarts)  
+    9.2 [Consulta y eliminación](#-delete-apicartsidid)
+10. [🎟️ Tickets de Compra](#-tickets)
+    10.1 [Proceso de checkout](#-post-apicartsidcheckout)
+11. [🔒 Roles y Permisos](#-roles-y-permisos)
+12. [💌 Recuperación de Contraseña](#-recuperación-de-contraseña)
+
+
 ## 🌐 Endpoints y Vistas
 
 ## 👤 Autenticación
@@ -903,20 +927,102 @@ Respuestas posibles:
 
 ## 🎟️ Tickets
 
-| Endpoint                                   | Método | Descripción                               |
+| Endpoint                                   | Método | Acción                                    |
 |--------------------------------------------|--------|-------------------------------------------|
 | `/api/carts/:id/checkout`                  | POST   | Se vale de la sesión, ejecutando doSale() |
 
 
-| Función     | Descripción                                                                 |
-|-------------|-----------------------------------------------------------------------------|
-| `doSale()`  | Verifica stock, descuenta cantidades y genera un ticket con `UUID`, fecha,  |
-|             | total, y productos vendidos al usuario comprador.                           |
+| Función     | Descripción                                                                                   |
+|-------------|-----------------------------------------------------------------------------------------------|
+| `doSale()`  | Verifica stock, descuenta cantidades y genera un ticket con `UUID`, fecha, total, y productos |
+|             | vendidos al usuario comprador. Limpia el carrito del usuario.                                 |
 
 ---
 
+### 🛒 POST /api/carts/:id/checkout
+Descripción: Este endpoint procesa la venta de un carrito determinado. Verifica el stock de productos, 
+descuenta las cantidades disponibles, genera un ticket y vacía el carrito.
+
+> 🧑‍💻 **Autenticación:** Requiere token JWT (mediante passport.authenticate("jwt")).
 
 
+Parámetros:
+```
+:id – ID del carrito a procesar.
+```
+Request Headers:
+```http
+Authorization: Bearer <JWT_TOKEN>
+Content-Type: application/json
+```
+
+Cuerpo opcional:
+```json
+{
+  "email": "usuario@example.com"
+}
+```
+> ⚠️ **Nota:** Si el usuario está autenticado correctamente, se toma el email de `req.user.email`. El campo email en el body es opcional y solo se utiliza como respaldo.
+ 
+
+Respuesta Exitosa – 201 Created:
+```json
+{
+  "status": "success",
+  "ticket": {
+    "code": "e28b73c8-b4de-4e78-a2f3-149e4c2c1889",
+    "amount": 15800,
+    "purchaser": "usuario@example.com",
+    "purchase_datetime": "2025-07-20T23:18:45.789Z",
+    "products": [
+      {
+        "product": "64c1f3b9b4fd5a001e0aa3ef",
+        "quantity": 2,
+        "price": 4000
+      },
+      {
+        "product": "64c1f3a8b4fd5a001e0aa3ed",
+        "quantity": 1,
+        "price": 7800
+      }
+    ]
+  }
+}
+```
+
+Respuesta con error – 400 Bad Request:
+```json
+{
+  "status": "error",
+  "message": "Faltan datos: ID de carrito o email"
+}
+```
+
+Respuesta con error – 404 Not Found:
+```json
+{
+  "status": "error",
+  "message": "Carrito no encontrado"
+}
+```
+
+Respuesta con error – 500 Internal Server Error:
+```json
+{
+  "status": "error",
+  "message": "Error inesperado al realizar la venta"
+}
+```
+** 🧾 Estructura del `Ticket`
+Cada ticket contiene la siguiente información:
+| Campo                      |  Tipo  |             Descripción                   |
+|----------------------------|--------|-------------------------------------------|
+|           code	           | string	|  Código único generado con UUID           |
+|          amount	           | number |	 Total de la compra                       |
+|         purchaser	         | string	|  Email del comprador                      |
+|     purchase_datetime      | string	|  Fecha y hora de la compra en formato ISO |
+|         products	         | array	|  Lista de productos comprados             |
+---
 
 - Los tickets se almacenan con:
   - `code`: código único UUID
