@@ -36,8 +36,8 @@ npm install
     6.1 [Registro y login](#-post-apisessionslogin)  
     6.2 [Recuperación de contraseña](#-post-apisessionsforgot-password)  
     6.3 [CRUD de usuarios](#-post-apiuser)
-
-7. [🖼️ Vistas Renderizadas](#-vistas-renderizadas)
+    
+7. [🖼️ Vistas Renderizadas](#vistas-renderizadas)
 8. [📦 Gestión de Productos](#-productos)
 
     8.1 [Endpoints públicos](#-get-apiproducts)  
@@ -929,8 +929,6 @@ Respuestas posibles:
 404 Not Found: Carrito no encontrado.
 500 Internal Server Error: Error al intentar eliminar.
 ```
-
-## 🛒 Carritos
 
 
 ## 🎟️ Tickets
