@@ -221,6 +221,8 @@ O puede redirigir a la vista de login con un mensaje.
 
 ---
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
+
 ### ✅ POST /api/products
 Descripción: Devuelve un array con todos los productos disponibles.
 
