@@ -770,6 +770,8 @@ Respuesta esperada:
 ```
 > ⚠️ **¡ATENCIÓN!** Si bien es un endpoint público, requiere un token de autorización en el header (de la manera descripta arriba) para poder devolverte el carrito del usuario logueado.
 
+<p align="right"><a href="#indice">Ir al Índice</a></p>
+
 ### 🔹 POST /api/carts
 Descripción: Crear un carrito vacío asociado a un usuario.
 
