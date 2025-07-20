@@ -5,14 +5,12 @@ import ticketModel from "./models/ticket.model.js";
 class TicketDAO {
   async create(ticketData) {
     try {
-      const ticket = await ticketModel.create(ticketData);
-      return ticket;
+      return await ticketModel.create(ticketData);
     } catch (error) {
       console.error("Error al crear el ticket:", error);
-      return null;
+      throw error; // <- ✅ relanza para que suba al controller
     }
   }
-
   
   get model() {
     return ticketModel;

@@ -36,6 +36,9 @@
           <p id="totalCarrito"><strong>Total: $0</strong></p>
         </div>
         <div class="modal-footer">
+          <button id="btn-checkout" class="btn btn-success">
+            🧾 Realizar venta
+          </button>
           <button type="button" class="btn btn-secondary" onclick="closeCartModal()">Cerrar</button>
         </div>
       </div>
@@ -47,6 +50,53 @@
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script>
+    document.getElementById("btn-checkout").addEventListener("click", async () => {
+      try {
+        // Obtener el carrito actual del usuario directamente del backend
+        const carrito = await getMyCart();
+        if (!carrito || !carrito._id) {
+          return alert("❌ No se encontró un carrito asociado.");
+        }
+        const cartId = carrito._id;
+
+        // checkout sin token manual
+        const res = await fetch(`/api/carts/${cartId}/checkout`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: "include"
+        });
+
+
+        const result = await res.json();
+
+        if (result.status === "success" && result.ticket) {
+          const ticket = result.ticket;
+          Swal.fire({
+            icon: "success",
+            title: "✅ Venta realizada",
+            html: `
+      <p><strong>Ticket:</strong> ${ticket.code || "Sin código"}</p>
+      <p><strong>Total:</strong> $${ticket.amount?.toFixed(2) || 0}</p>
+      <p><strong>Comprador:</strong> ${ticket.purchaser || "Desconocido"}</p>
+    `,
+            confirmButtonText: "Aceptar"
+          });
+
+          document.getElementById("lista-carrito").innerHTML = "";
+          document.getElementById("totalCarrito").innerText = "Total: $0";
+          closeCartModal();
+        } else {
+          alert("⚠️ Error en la venta: " + (result.message || "No se recibió un ticket válido."));
+        }
+      } catch (err) {
+        console.error(err);
+        alert("❌ Error inesperado al realizar la venta.");
+      }
+    });
+
+
     const cartModal = new bootstrap.Modal(document.getElementById('cartModal'));
     let CURRENT_CART_ID = null;
 

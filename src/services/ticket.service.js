@@ -8,7 +8,7 @@ import { checkStock } from "../utils/stockChecker.js";
 
 const ticketRepo = new TicketRepository();
 
-const productService = new ProductService();
+const productServ = new ProductService();
 
 class TicketService {
 
@@ -18,24 +18,28 @@ class TicketService {
     }
 
     // 1. Validar stock para todos los productos
-  for (const item of cart.products) {
-    const hasStock = await checkStock(item.num, item.quantity);
-    if (!hasStock) {
-      const product = await productService.getByProductNum(item.num);
-      throw new Error(`Stock insuficiente para el producto ${product.title} con num ${item.num}`);
+    for (const item of cart.products) {
+      const product = await productServ.getByProductNum(item.num);
+      if (!product) {
+        throw new Error(`Producto no encontrado con num ${item.num}`);
+      }
+    
+      const hasStock = await checkStock(item.num, item.quantity);
+      if (!hasStock) {
+        throw new Error(`Stock insuficiente para el producto ${product.title} con num ${item.num}`);
+      }
     }
-  }
 
 
     // 2. Si pasamos la validación, restamos el stock
     for (const item of cart.products) {
       const { num, quantity } = item;
-      const product = await productService.getByProductNum(num);
+      const product = await productServ.getByProductNum(num);
 
       // Actualizar stock restando cantidad
       const nuevoStock = product.stock - quantity;
 
-      await productService.updateProduct(product._id, { stock: nuevoStock });
+      await productServ.updateProduct(product._id, { stock: nuevoStock });
     }
 
     // 3. Calcular monto total

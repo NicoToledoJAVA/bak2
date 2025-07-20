@@ -38,5 +38,9 @@ router.delete("/id/:id/product/num/:num", cartController.deleteProductFromCart);
 // ✅ Eliminar carrito por _id
 router.delete("/id/:id", cartController.deleteCart);
 
+// 💸 Este es el EP de la venta
+router.post("/:id/checkout", passport.authenticate("jwt", { session: false }), cartController.doSale);
+
+
 
 export default router;
