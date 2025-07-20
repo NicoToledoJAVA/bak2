@@ -32,9 +32,11 @@ npm install
 4. [🌐 Endpoints y Vistas](#-endpoints-y-vistas)
 5. [🔐 Autenticación con JWT](#-jwt)
 6. [👤 Gestión de Usuarios](#-usuarios-apiousers)
+
     6.1 [Registro y login](#-post-apisessionslogin)  
     6.2 [Recuperación de contraseña](#-post-apisessionsforgot-password)  
     6.3 [CRUD de usuarios](#-post-apiuser)
+
 7. [🖼️ Vistas Renderizadas](#-vistas-renderizadas)
 8. [📦 Gestión de Productos](#-productos)
     8.1 [Endpoints públicos](#-get-apiproducts)  
